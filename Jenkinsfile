@@ -1,16 +1,15 @@
 node {
     stage('Clone') {
-        git 'https://github.com/fatilocal/jenkins-helloworld-1.git'
+        checkout scm  
     }
-    stage('Build') {
-        sh '''
-       javac Main.java
-       '''
+    stage('Build image') {
+        app = docker.build("test/nginx")
     }
-    stage('Run') {
-        sh '''
-        java Main
-        '''
+    stage('Run image') {
+        docker.image('test/nginx').withRun('-p 80:80') { c ->
+        sh 'docker ps'
+        sh 'curl localhost'
+    }
     }
 }
 
