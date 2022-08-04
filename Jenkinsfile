@@ -10,7 +10,7 @@ def app
     }  
 
     stage('Run image') {
-        docker.image('test/nginx').withRun('-p 84:80') { c ->
+        docker.image('test/nginx').withRun('-p 88:80') { c ->
 
         sh 'docker ps'
 
